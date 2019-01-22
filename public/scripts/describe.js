@@ -8,6 +8,9 @@ function describeCtrl (scope, location, http) {
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
   vm.properties = [];
+  vm.propertiesReverse = [];
+  vm.getValuesReverse = getValuesReverse;
+
   vm.values = {};
   var prefixes = [
     {prefix: 'rdf:',   uri: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"},
@@ -23,24 +26,39 @@ function describeCtrl (scope, location, http) {
   vm.uri = vm.absUrl.replace('#!#','#').replace("http","https").replace("localhost:7070","w3id.org");
 
   execQuery(propertiesQuery(vm.uri), data => {
-    console.log(data.results.bindings)
     vm.properties = data.results.bindings;
   });
 
+  execQuery(propertiesQueryReverse(vm.uri), data => {
+    vm.propertiesReverse = data.results.bindings;
+  });
 
   function changeURI( data ){
     for (i=0; i<data.results.bindings.length; i++) {
       if (data.results.bindings[i]['uri'] != undefined) {
-          data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
+        //force redirect w3id to localhost
+        data.results.bindings[i]['uri']['value'] =\
+          data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
       }
     }
     return data
   }
-  
+
   function getValues (prop, i) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQuery(vm.uri, prop.uri.value, prop.step), data => {
+      data = changeURI(data)
+      vm.values[prop.uri.value] = data.results.bindings;
+    });
+
+  }
+
+  function getValuesReverse (prop, i) {
+    console.log("here")
+    if (i > 0) prop.step += 1;
+    if (i < 0) prop.step -= 1;
+    execQuery(valuesQueryReserve(vm.uri, prop.uri.value, prop.step), data => {
       data = changeURI(data)
       vm.values[prop.uri.value] = data.results.bindings;
     });
@@ -59,19 +77,21 @@ function describeCtrl (scope, location, http) {
   /* query helpers */
   function propertiesQuery (uri) {
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
-    q+= '{\n'
     q+= '  <' + uri + '> ?uri [] .\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
     q+= '}';
-    q+= 'UNION';
-    q+= '{\n'
+    return q;
+  }
+
+  /* query helpers */
+  function propertiesQueryReverse (uri) {
+    q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
     q+= ' [] ?uri   <' + uri + '> .\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
-    q+= '}\n';
     q+= '}';
     return q;
   }
-  
+
   /* query helpers */
   function valuesQuery (uri, prop, step) { //TODO: limit, offset and pagination.
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
@@ -99,7 +119,6 @@ function describeCtrl (scope, location, http) {
   }
 
   function execQuery (query, callback) {
-    console.log(query);
     http({
         method: 'post',
         url: endpoint,
