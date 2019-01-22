@@ -37,8 +37,7 @@ function describeCtrl (scope, location, http) {
     for (i=0; i<data.results.bindings.length; i++) {
       if (data.results.bindings[i]['uri'] != undefined) {
         //force redirect w3id to localhost
-        data.results.bindings[i]['uri']['value'] =\
-          data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
+        data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
       }
     }
     return data
