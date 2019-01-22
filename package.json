@@ -1,0 +1,17 @@
+{
+  "name": "MINT Explorer",
+  "version": "1.0.0",
+  "description": "An RDF endpoint for docker security data.",
+  "main": "server.js",
+  "contributors": [
+    "Maximiliano Osorio <mosorio@inf.utfsm.cl>",
+  ],
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "latest",
+    "morgan": "latest",
+    "npm": "latest",
+    "pug": "latest",
+    "request": "latest"
+  }
+}
