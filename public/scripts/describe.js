@@ -27,15 +27,21 @@ function describeCtrl (scope, location, http) {
     vm.properties = data.results.bindings;
   });
 
+
+  function changeURI( data ){
+    for (i=0; i<data.results.bindings.length; i++) {
+      if (data.results.bindings[i]['uri'] != undefined) {
+          data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
+      }
+    }
+    return data
+  }
+  
   function getValues (prop, i) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQuery(vm.uri, prop.uri.value, prop.step), data => {
-      for (i=0; i<data.results.bindings.length; i++) {
-        if (data.results.bindings[i]['uri'] != undefined) {
-            data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
-        }
-      }
+      data = changeURI(data)
       vm.values[prop.uri.value] = data.results.bindings;
     });
   }
@@ -75,6 +81,14 @@ function describeCtrl (scope, location, http) {
     return q;
   }
 
+  /* query helpers */
+  function valuesQueryReserve (uri, prop, step) { //TODO: limit, offset and pagination.
+    q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
+    q+= '  ?uri  <' + prop + '> <' + uri + '>.\n';
+    q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
+    q+= '} limit 11 offset ' + (step)*10;
+    return q;
+  }
 
   /* send query to the endpoint */
   function toForm (obj) {
