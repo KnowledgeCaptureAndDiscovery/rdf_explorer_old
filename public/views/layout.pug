@@ -1,0 +1,58 @@
+doctype html
+html(lang="en", ng-app="dockerpedia")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    base(href="/")
+    // Bootstrap stuff
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+    // Font
+    link(href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
+    // Angular
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js")
+    script(src="https://www.googletagmanager.com/gtag/js?id=UA-117345866-1")
+    // Intro
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js")
+    // angular-loading-bar
+    link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js")
+    // Slider
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.6.1/rzslider.min.js")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.6.1/rzslider.min.css")
+    // mine
+    script(src="scripts/ui-bootstrap-tpls-2.5.0.min.js")
+    script(src="scripts/app.js")
+    script(src="scripts/main.js")
+    script(src="scripts/analytics.js")
+    link(rel="stylesheet", href="styles/style.css")
+    title="DockerPedia"
+  body
+    div#container
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light(ng-controller="mainCtrl")
+        a.navbar-brand(href="/") DockerPedia
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown",
+                              aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        div#navbarNavDropdown.navbar-collapse.collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item(ng-class="!loc ? 'active' : '';")
+              a.nav-link(href="/") Home
+          ul.navbar-nav
+            li.nav-item(ng-class="loc == 'visualization' ? 'active' : '';")
+              a.nav-link(href="/visualization") V1
+            li.nav-item(ng-class="loc == 'visualization2' ? 'active' : '';")
+              a.nav-link(href="/visualization2") V2
+            li.nav-item(ng-class="loc == 'examples'? 'active' : '';")
+              a.nav-link(href="/examples") Examples
+            li.nav-item(ng-class="loc == 'query' ? 'active' : '';")
+              a.nav-link(href="/query") Query
+      div#body
+        block content
+      div#footer
+        include footer
