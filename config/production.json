@@ -1,0 +1,9 @@
+{
+  "server": {
+  	"port": 8090,
+  	"url": "http://mint.mosorio.me"
+  },
+  "sparql": {
+  	"endpointQuery": "http://ontosoft.isi.edu:3030/ds/query"
+  }
+}

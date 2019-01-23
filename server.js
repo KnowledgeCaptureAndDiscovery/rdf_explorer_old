@@ -5,13 +5,14 @@ const bodyParser  = require('body-parser');
 const request     = require('request');
 const fs          = require('fs');
 
-const port      = 80;
-const sparqlUrl = "https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql";
-const resFormat = "application/ld+json";
-const views     = __dirname + '/public/views/';
 const config = require('config');
 const serverURL = config.get('server.url');
 const queryEndpoint = config.get('sparql.endpointQuery');
+
+const port      = config.get('server.port');
+const sparqlUrl = "https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql";
+const resFormat = "application/ld+json";
+const views     = __dirname + '/public/views/';
 
 var app = express();
 
@@ -53,9 +54,6 @@ app.post('/api/getJsonData', function(req, res) {
 });
 
 // ROUTES =====================================================================
-//app.get('/modal/:name', function (req, res) { res.render(views+'modal/' + req.params.name); });
-//app.get('/visualization', function(req, res) {res.render(views+'visualization.pug'   );});
-//app.get('/visualization2', function(req, res) {res.render(views+'visualization2.pug'   );});
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 //app.get('/examples',   function(req, res) {res.render(views+'examples.pug');});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
