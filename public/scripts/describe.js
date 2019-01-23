@@ -1,7 +1,9 @@
 angular.module('dockerpedia.controllers').controller('describeCtrl', describeCtrl);
 
 describeCtrl.$inject = ['$scope', '$location', '$http']
-const queryEndpoint = "http://localhost:7070";
+
+const queryEndpoint = "http://mint.mosorio.me";
+const endpoint = "http://ontosoft.isi.edu:3030/ds/query";
 
 function replaceURI(uri){
   return uri.replace(queryEndpoint,"https://w3id.org");
@@ -12,7 +14,6 @@ function replaceLocalURI(uri){
 }
 
 function describeCtrl (scope, location, http) {
-  var endpoint = "http://ontosoft.isi.edu:3030/ds/query";
 
   var vm = this;
   vm.toPrefix = toPrefix;
@@ -32,7 +33,8 @@ function describeCtrl (scope, location, http) {
   ];
 
   vm.absUrl = location.absUrl();
-  vm.uri = replaceURI(vm.absUrl.replace('#!#','#'));
+  vm.uri = vm.absUrl.replace('explorer/','').replace('#!#','#')
+  vm.uri = replaceURI(vm.uri);
 
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;

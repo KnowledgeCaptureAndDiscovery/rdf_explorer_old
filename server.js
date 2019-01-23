@@ -5,12 +5,16 @@ const bodyParser  = require('body-parser');
 const request     = require('request');
 const fs          = require('fs');
 
-const port      = 7070;
-const sparqlUrl = "http://ontosoft.isi.edu:3030/ds/sparql";
+const port      = 80;
+const sparqlUrl = "https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql";
 const resFormat = "application/ld+json";
 const views     = __dirname + '/public/views/';
+const config = require('config');
+const serverURL = config.get('server.url');
+const queryEndpoint = config.get('sparql.endpointQuery');
 
 var app = express();
+
 // EXPRESS CONFIGURATION ======================================================
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public')); 
@@ -21,16 +25,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 // POST =======================================================================
-app.post('/api/describe', function(req, res) {
-  var q = 'DESCRIBE <' + req.body.iri + '>';
-  console.log(q);
-  request.post(
-    sparqlUrl, 
-    { form: {format: resFormat, query: q} },
-    function (err, rcode, body) {
-      res.json(JSON.parse(body));
-  });
-});
+// app.post('/api/describe', function(req, res) {
+//   var q = 'DESCRIBE <' + req.body.iri + '>';
+//   console.log(q);
+//   request.post(
+//     sparqlUrl, 
+//     { form: {format: resFormat, query: q} },
+//     function (err, rcode, body) {
+//       res.json(JSON.parse(body));
+//   });
+// });
 
 app.post('/api/getJsonData', function(req, res) {
   var dataPath = 'public/files/users/' + req.body.user + '.json';
@@ -40,7 +44,7 @@ app.post('/api/getJsonData', function(req, res) {
       if (err) throw err;
       obj = JSON.parse(data);
       res.send(JSON.stringify(obj));
-      console.log("    ok!");
+      console.log("ok!");
     });
   } else {
     console.log("    file doest not exists!");
@@ -55,7 +59,13 @@ app.post('/api/getJsonData', function(req, res) {
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 //app.get('/examples',   function(req, res) {res.render(views+'examples.pug');});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
-app.get('/mint/*', function(req, res) {res.render(views+'describe.pug');});
+app.get('/mint/*',     function(req, res) {res.redirect('/explorer' +  req.originalUrl);});
+app.get('/explorer/*', function(req, res) {
+                          res.render(views+'describe.pug', {
+                              'serverURL': serverURL
+                          });
+                        });
+
 app.get('/*',          function(req, res) {res.render(views+'index.pug'   );});
 
 
