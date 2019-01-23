@@ -35,7 +35,7 @@ html(lang="en", ng-app="dockerpedia")
   body
     div#container
       nav.navbar.navbar-expand-lg.navbar-light.bg-light(ng-controller="mainCtrl")
-        a.navbar-brand(href="/") DockerPedia
+        a.navbar-brand(href="/") Mint
         button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown",
                               aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
           span.navbar-toggler-icon
@@ -44,10 +44,10 @@ html(lang="en", ng-app="dockerpedia")
             li.nav-item(ng-class="!loc ? 'active' : '';")
               a.nav-link(href="/") Home
           ul.navbar-nav
-            li.nav-item(ng-class="loc == 'visualization' ? 'active' : '';")
-              a.nav-link(href="/visualization") V1
-            li.nav-item(ng-class="loc == 'visualization2' ? 'active' : '';")
-              a.nav-link(href="/visualization2") V2
+            //li.nav-item(ng-class="loc == 'visualization' ? 'active' : '';")
+            //  a.nav-link(href="/visualization") V1
+            //li.nav-item(ng-class="loc == 'visualization2' ? 'active' : '';")
+            //  a.nav-link(href="/visualization2") V2
             li.nav-item(ng-class="loc == 'examples'? 'active' : '';")
               a.nav-link(href="/examples") Examples
             li.nav-item(ng-class="loc == 'query' ? 'active' : '';")

@@ -6,7 +6,7 @@ const request     = require('request');
 const fs          = require('fs');
 
 const port      = 7070;
-const sparqlUrl = "https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql";
+const sparqlUrl = "http://ontosoft.isi.edu:3030/ds/sparql";
 const resFormat = "application/ld+json";
 const views     = __dirname + '/public/views/';
 

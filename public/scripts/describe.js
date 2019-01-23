@@ -1,9 +1,19 @@
 angular.module('dockerpedia.controllers').controller('describeCtrl', describeCtrl);
 
 describeCtrl.$inject = ['$scope', '$location', '$http']
+const queryEndpoint = "http://localhost:7070";
+
+function replaceURI(uri){
+  return uri.replace(queryEndpoint,"https://w3id.org");
+}
+
+function replaceLocalURI(uri){
+  return uri.replace("https://w3id.org", queryEndpoint);
+}
 
 function describeCtrl (scope, location, http) {
   var endpoint = "http://ontosoft.isi.edu:3030/ds/query";
+
   var vm = this;
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
@@ -19,11 +29,10 @@ function describeCtrl (scope, location, http) {
     {prefix: 'mint:', uri: "https://w3id.org/mint/modelCatalog#"},
     {prefix: 'purl:', uri: "http://purl.org/dc/terms/"},
     {prefix: 'onsw:', uri: "http://ontosoft.org/software#"},
-
   ];
 
   vm.absUrl = location.absUrl();
-  vm.uri = vm.absUrl.replace('#!#','#').replace("http","https").replace("localhost:7070","w3id.org");
+  vm.uri = replaceURI(vm.absUrl.replace('#!#','#'));
 
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;
@@ -37,7 +46,8 @@ function describeCtrl (scope, location, http) {
     for (i=0; i<data.results.bindings.length; i++) {
       if (data.results.bindings[i]['uri'] != undefined) {
         //force redirect w3id to localhost
-        data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
+        data.results.bindings[i]['uri']['value'] = replaceLocalURI(data.results.bindings[i]['uri']['value'])
+        //data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
       }
     }
     return data
@@ -54,7 +64,6 @@ function describeCtrl (scope, location, http) {
   }
 
   function getValuesReverse (prop, i) {
-    console.log("here")
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQueryReserve(vm.uri, prop.uri.value, prop.step), data => {

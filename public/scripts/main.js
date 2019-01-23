@@ -76,13 +76,15 @@ SELECT ?packagename (count(?packagename) as ?count) WHERE {
 } group by (?packagename) order by desc(?count) limit 20`,
   ];
 
+  var baseURL = "http://ontosoft.isi.edu:3030";
+  var endpointSPARQL = baseURL + '/dockerpedia/sparql';
   var absUrlArray = location.absUrl().split('/');
   scope.loc = absUrlArray[absUrlArray.length -1].split('?')[0].split('#')[0];
   if (scope.loc == 'query') {
     //console.log(YASGUI.defaults);
     scope.yasgui = YASGUI(document.getElementById("yasgui"), {
-      yasqe: { sparql:{ endpoint:'https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql' } },
-      endpoint: 'https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql',
+      yasqe: { sparql:{ endpoint: endpointSPARQL} },
+      endpoint: endpointSPARQL,
       catalogueEndpoints: [],
     });
   } else if (scope.loc == 'examples') {
@@ -92,12 +94,12 @@ SELECT ?packagename (count(?packagename) as ?count) WHERE {
     YASQE.defaults.viewportMargin = Infinity;
     YASQE.defaults.createShareLink = null;
     YASQE.defaults.sparql.showQueryButton = true;
-    YASQE.defaults.sparql.endpoint = "https://dockerpedia.inf.utfsm.cl/dockerpedia/sparql";
+    YASQE.defaults.sparql.endpoint = endpointSPARQL;
     for (var n in scope.examples) {
       yasqeTMP = YASQE(document.getElementById("yasqe"+n), {});
       yasqeTMP.setValue(scope.examples[n]);
       yasqeTMP.query = function (s) {
-        q ='https://dockerpedia.inf.utfsm.cl/query?' + $.param(YASQE.createShareLink(this));
+        q = baseURL + '/query?' + $.param(YASQE.createShareLink(this));
         window.open(q, '_blank');
       };
       scope.yasqe.push(yasqeTMP);
