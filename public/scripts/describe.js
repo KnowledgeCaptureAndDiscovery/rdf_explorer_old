@@ -2,20 +2,19 @@ angular.module('dockerpedia.controllers').controller('describeCtrl', describeCtr
 
 describeCtrl.$inject = ['$scope', '$location', '$http']
 
-const queryEndpoint = "http://mint.mosorio.me";
-const endpoint = "http://ontosoft.isi.edu:3030/ds/query";
-
-function replaceURI(uri){
-  return uri.replace(queryEndpoint,"https://w3id.org");
+function replaceURI(uri, serverURL){
+  return uri.replace(serverURL,"https://w3id.org");
 }
 
-function replaceLocalURI(uri){
-  return uri.replace("https://w3id.org", queryEndpoint);
+function replaceLocalURI(uri, serverURL){
+  return uri.replace("https://w3id.org", serverURL);
 }
 
 function describeCtrl (scope, location, http) {
-
+  
   var vm = this;
+  var endpoint = queryEndpointJS
+  var serverURL = serverURLJS
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
   vm.properties = [];
@@ -34,7 +33,7 @@ function describeCtrl (scope, location, http) {
 
   vm.absUrl = location.absUrl();
   vm.uri = vm.absUrl.replace('explorer/','').replace('#!#','#')
-  vm.uri = replaceURI(vm.uri);
+  vm.uri = replaceURI(vm.uri, serverURL);
 
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;
@@ -48,14 +47,13 @@ function describeCtrl (scope, location, http) {
     for (i=0; i<data.results.bindings.length; i++) {
       if (data.results.bindings[i]['uri'] != undefined) {
         //force redirect w3id to localhost
-        data.results.bindings[i]['uri']['value'] = replaceLocalURI(data.results.bindings[i]['uri']['value'])
-        //data.results.bindings[i]['uri']['value'] = data.results.bindings[i]['uri']['value'].replace('https://w3id.org/mint/instance','http://localhost:7070/mint/instance')
+        data.results.bindings[i]['uri']['value'] = replaceLocalURI(data.results.bindings[i]['uri']['value'], serverURL)
       }
     }
     return data
   }
 
-  function getValues (prop, i) {
+  function getValues (prop, i, endpoint) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQuery(vm.uri, prop.uri.value, prop.step), data => {
