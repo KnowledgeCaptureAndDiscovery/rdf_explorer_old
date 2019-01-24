@@ -1,6 +1,6 @@
 {
   "server": {
-  	"port": 8090,
+  	"port": 80,
   	"url": "http://mint.mosorio.me"
   },
   "sparql": {

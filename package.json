@@ -13,6 +13,7 @@
     "morgan": "latest",
     "npm": "latest",
     "pug": "latest",
-    "request": "latest"
+    "request": "latest",
+    "js-yaml": "latest"
   }
 }

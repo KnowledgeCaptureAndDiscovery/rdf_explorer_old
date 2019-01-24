@@ -1,7 +1,7 @@
 {
   "server": {
-  	"port": 80,
-  	"url": "http://localhost"
+  	"port": 7070,
+  	"url": "http://localhost:7070"
   },
   "sparql": {
   	"endpointQuery": "http://ontosoft.isi.edu:3030/ds/query"
