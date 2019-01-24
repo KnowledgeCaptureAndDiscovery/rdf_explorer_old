@@ -6,6 +6,10 @@
   "contributors": [
     "Maximiliano Osorio <mosorio@inf.utfsm.cl>"
   ],
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
   "dependencies": {
     "body-parser": "latest",
     "config": "^3.0.1",
@@ -15,5 +19,8 @@
     "pug": "latest",
     "request": "latest",
     "js-yaml": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

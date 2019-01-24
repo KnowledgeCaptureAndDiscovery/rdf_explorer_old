@@ -13,6 +13,7 @@ const port      = config.get('server.port');
 const views     = __dirname + '/public/views/';
 
 var app = express();
+var data = require('./controllers/data.js');
 
 // EXPRESS CONFIGURATION ======================================================
 app.set('view engine', 'pug');
@@ -23,37 +24,29 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
-app.post('/api/getJsonData', function(req, res) {
-  var dataPath = 'public/files/users/' + req.body.user + '.json';
-  console.log('    ' + dataPath);
-  if (fs.existsSync(dataPath)) {
-    fs.readFile(dataPath, 'utf8', function (err, data) {
-      if (err) throw err;
-      obj = JSON.parse(data);
-      res.send(JSON.stringify(obj));
-      console.log("ok!");
-    });
-  } else {
-    console.log("    file doest not exists!");
-    res.json(null);
-  }
-});
-
 // ROUTES =====================================================================
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
-//app.get('/examples',   function(req, res) {res.render(views+'examples.pug');});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
-app.get('/mint/*',     function(req, res) {res.redirect('/explorer' +  req.originalUrl);});
-app.get('/explorer/*', function(req, res) {
-                          res.render(views+'describe.pug', {
-                              'serverURL': serverURL,
-                              'queryEndpoint': queryEndpoint
-                          });
-                        });
+
+app.get('/mint/*', function(req, res) {
+  if (req.accepts('text/html')){
+    res.redirect(303, '/page' + req.originalUrl);
+  }
+  else if (req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])){
+    res.redirect(303, '/data' + req.originalUrl);
+  }
+  else {
+    res.status(406).send('Not Acceptable');
+  }
+});
+app.get('/data/mint/*', data.data_show);
+app.get('/page/mint/*', function(req, res) {
+  res.render(views+'describe.pug', {
+    'serverURL': serverURL,
+    'queryEndpoint': queryEndpoint
+  });
+});
 
 app.get('/*',          function(req, res) {res.render(views+'index.pug'   );});
-
-
-// LISTEN =====================================================================
 app.listen(port);
 console.log("App listening on port", port);

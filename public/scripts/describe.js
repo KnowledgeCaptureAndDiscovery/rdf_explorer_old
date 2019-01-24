@@ -11,7 +11,7 @@ function replaceLocalURI(uri, serverURL){
 }
 
 function describeCtrl (scope, location, http) {
-  
+
   var vm = this;
   var endpoint = queryEndpointJS
   var serverURL = serverURLJS
@@ -32,9 +32,9 @@ function describeCtrl (scope, location, http) {
   ];
 
   vm.absUrl = location.absUrl();
-  vm.uri = vm.absUrl.replace('explorer/','').replace('#!#','#')
+  vm.uri = vm.absUrl.replace('page/','').replace('#!#','#')
   vm.uri = replaceURI(vm.uri, serverURL);
-
+  console.log(vm.uri)
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;
   });
@@ -127,6 +127,7 @@ function describeCtrl (scope, location, http) {
   }
 
   function execQuery (query, callback) {
+    console.log(query);
     http({
         method: 'post',
         url: endpoint,
