@@ -1,5 +1,6 @@
 {
-  "app": {
-    "name": "MINT explorer"
+  "sparql": {
+    "endpointQuery": "http://ontosoft.isi.edu:3030/ds/query",
+    "endpointDescribe": "http://ontosoft.isi.edu:3030/ds/sparql"
   }
 }

@@ -2,9 +2,5 @@
   "server": {
   	"port": 7070,
   	"url": "http://localhost:7070"
-  },
-  "sparql": {
-    "endpointQuery": "http://ontosoft.isi.edu:3030/ds/query",
-    "endpointDescribe": "http://ontosoft.isi.edu:3030/ds/sparql"
   }
 }
