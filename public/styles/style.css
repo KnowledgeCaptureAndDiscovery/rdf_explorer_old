@@ -27,12 +27,13 @@ body {
 }
 .row-table-title {
   font-weight: bold;
+  word-wrap: break-word;
+
 }
 .row-table-values > div {
   max-width:100%;
   text-overflow: ellipsis;
-  height: 1.2em;
-  white-space: nowrap;
+  word-wrap: break-word;
 }
 
 #tutor {

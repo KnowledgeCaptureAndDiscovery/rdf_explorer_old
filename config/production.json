@@ -1,6 +1,6 @@
 {
   "server": {
-  	"port": 80,
+  	"port": 8090,
   	"url": "http://mint.mosorio.me"
   }
 }
