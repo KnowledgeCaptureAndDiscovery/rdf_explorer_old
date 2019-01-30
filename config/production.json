@@ -1,6 +1,6 @@
 {
   "server": {
-  	"port": 8080,
+  	"port": 7070,
   	"url": "http://explorer.isi.edu"
   }
 }

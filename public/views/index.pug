@@ -1,25 +1,18 @@
 extends layout
 
 block content
-  div.carousel.slide(data-ride="carousel")
-    div.carousel-inner
-      div.carousel-item.active
-        img.d-block.w-100(src="images/dockerpedia.png", alt="First slide",
-            style="object-fit: cover; height: 490px")
-
   main.container(role="main", style="padding-top: 15px")
     div.row
       div.col-md-2
       div.col-md-8
-        h2 Welcome to Mint
+        h2 Welcome to RDF explorer
         p
-          b Mint is
+          b RDF explorer is a Linked Data Frontend for SPARQL Endpoints
           | 
         p To explore the data you can follow any of the following links: 
         ul
-          //li 
-            a(href="#") Interactive browser 
-            b(style="color: red;") (TODO). 
           li
-            a(href="/query") SPARQL Endpoints 
+            a(href="/page/mint/instance/modflow_nwt") HTML
+          li
+            a(href="/data/mint/instance/modflow_nwt") N3
         p

@@ -17,7 +17,6 @@ function describeCtrl (scope, location, http) {
   var serverURL = serverURLJS
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
-  vm.getLabel = getLabel
   vm.properties = [];
   vm.propertiesReverse = [];
   vm.getValuesReverse = getValuesReverse;
@@ -44,7 +43,6 @@ function describeCtrl (scope, location, http) {
   vm.datauri = vm.absUrl.replace('page/','data/')
   vm.uri = vm.absUrl.replace('page/','')
   vm.uri = replaceURI(vm.uri, serverURL);
-  getLabel()
 
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;
@@ -64,11 +62,6 @@ function describeCtrl (scope, location, http) {
     return data
   }
 
-  function getLabel (){
-    execQuery(labelQuery(vm.uri), data => {
-      vm.label = data.results.bindings[0]['label']['value']
-    });   
-  }
   function getValues (prop, i) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
