@@ -11,7 +11,6 @@ exports.data_show = function(req, res) {
     path = req.originalUrl.replace("data/", "")
     url = serverURL + path;
     url = replaceURI(url, serverURL)
-    url = url.replace('instance/', 'instance#')
     resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])
     var q = 'DESCRIBE <' + url + '>';
     console.log(q)

@@ -17,6 +17,7 @@ function describeCtrl (scope, location, http) {
   var serverURL = serverURLJS
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
+  vm.getLabel = getLabel
   vm.properties = [];
   vm.propertiesReverse = [];
   vm.getValuesReverse = getValuesReverse;
@@ -26,15 +27,25 @@ function describeCtrl (scope, location, http) {
     {prefix: 'rdf:',   uri: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"},
     {prefix: 'rdfs:',  uri: "http://www.w3.org/2000/01/rdf-schema#"},
     {prefix: 'owl:',   uri: "http://www.w3.org/2002/07/owl#"},
-    {prefix: 'mint:', uri: "https://w3id.org/mint/modelCatalog#"},
+    {prefix: 'vocab:', uri: "https://w3id.org/mint/modelCatalog#"},
+    {prefix: 'resource:', uri: "https://w3id.org/mint/instance/"},
+    {prefix: 'vocab:', uri: "http://localhost:7070/mint/modelCatalog#"},
+    {prefix: 'resource:', uri: "http://localhost:7070/mint/instance/"},
     {prefix: 'purl:', uri: "http://purl.org/dc/terms/"},
     {prefix: 'onsw:', uri: "http://ontosoft.org/software#"},
   ];
 
+  var specials = {
+    'description': 'http://purl.org/dc/terms/description',
+    'label': 'http://www.w3.org/2000/01/rdf-schema#label'
+  }
+  vm.label = ""
   vm.absUrl = location.absUrl();
-  vm.uri = vm.absUrl.replace('page/','').replace('#!#','#')
+  vm.datauri = vm.absUrl.replace('page/','data/')
+  vm.uri = vm.absUrl.replace('page/','')
   vm.uri = replaceURI(vm.uri, serverURL);
-  console.log(vm.uri)
+  getLabel()
+
   execQuery(propertiesQuery(vm.uri), data => {
     vm.properties = data.results.bindings;
   });
@@ -53,7 +64,12 @@ function describeCtrl (scope, location, http) {
     return data
   }
 
-  function getValues (prop, i, endpoint) {
+  function getLabel (){
+    execQuery(labelQuery(vm.uri), data => {
+      vm.label = data.results.bindings[0]['label']['value']
+    });   
+  }
+  function getValues (prop, i) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQuery(vm.uri, prop.uri.value, prop.step), data => {
@@ -100,6 +116,13 @@ function describeCtrl (scope, location, http) {
     return q;
   }
 
+  function labelQuery (uri) {
+    q = 'SELECT DISTINCT ?label WHERE {\n';
+    q+= ' <' + uri + '> <http://www.w3.org/2000/01/rdf-schema#label> ?label \n'
+    q+= '}';
+    return q;
+  }
+
   /* query helpers */
   function valuesQuery (uri, prop, step) { //TODO: limit, offset and pagination.
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
@@ -127,7 +150,6 @@ function describeCtrl (scope, location, http) {
   }
 
   function execQuery (query, callback) {
-    console.log(query);
     http({
         method: 'post',
         url: endpoint,

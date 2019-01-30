@@ -10,7 +10,8 @@ block content
     div.row(style="padding-top:20px")
       div.col-md-1
       div.col-md-10
-        h5(style="text-align: center; padding-bottom:10px;") {{ ctrl.uri }}
+        h5(style="text-align: center; padding-bottom:10px;") {{ ctrl.values['http://purl.org/dc/terms/description'][0]['uri']['value'] }}
+    
         h6(style="text-align: center; padding-bottom:10px;")  Outgoing relations
         div.row.row-table(ng-repeat="(i, res) in ctrl.properties", ng-init="res.step = 0; ctrl.getValues(res, 0, serverURL)")
           div.col-md-3.row-table-title
@@ -60,3 +61,4 @@ block content
                   div(ng-repeat="(i, v) in ctrl.values[res.uri.value]")
                     a(ng-if="v.uri.type=='uri'", href="{{ v.uri.value }}") {{ v.label ? v.label.value : ctrl.toPrefix(v.uri.value) }}
                     b(ng-if="v.uri.type!='uri'") {{ v.uri.value }}
+      
