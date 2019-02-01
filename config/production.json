@@ -1,6 +1,6 @@
 {
   "server": {
   	"port": 7070,
-  	"url": "http://explorer.isi.edu"
+  	"url": "http://ontosoft.isi.edu:7070"
   }
 }
