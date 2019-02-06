@@ -7,7 +7,7 @@ function replaceURI(uri, serverURL){
 }
 
 function replaceLocalURI(uri, serverURL){
-  return uri.replace("https://w3id.org", serverURL);
+  return uri.replace("https://w3id.org/mint/instance/", serverURL + );
 }
 
 function describeCtrl (scope, location, http) {
@@ -66,7 +66,6 @@ function describeCtrl (scope, location, http) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQuery(vm.uri, prop.uri.value, prop.step), data => {
-      data = changeURI(data)
       vm.values[prop.uri.value] = data.results.bindings;
     });
 
@@ -76,7 +75,6 @@ function describeCtrl (scope, location, http) {
     if (i > 0) prop.step += 1;
     if (i < 0) prop.step -= 1;
     execQuery(valuesQueryReserve(vm.uri, prop.uri.value, prop.step), data => {
-      data = changeURI(data)
       vm.values[prop.uri.value] = data.results.bindings;
     });
   }
