@@ -1,0 +1,7 @@
+version: '3'
+services:
+  uploader:
+   image: kcapd/rdf_explorer
+   restart: always
+   ports:
+      - "7070:8080"
