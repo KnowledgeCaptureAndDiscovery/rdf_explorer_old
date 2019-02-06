@@ -10,7 +10,7 @@ block content
     div.row(style="padding-top:20px")
       div.col-md-1
       div.col-md-10
-        h5(style="text-align: center; padding-bottom:10px;") {{ ctrl.values['http://purl.org/dc/terms/description'][0]['uri']['value'] }}
+        h5(style="text-align: center; padding-bottom:10px;") {{ ctrl.toPrefix(ctrl.uri) }}
     
         h6(style="text-align: center; padding-bottom:10px;")  Outgoing relations
         div.row.row-table(ng-repeat="(i, res) in ctrl.properties", ng-init="res.step = 0; ctrl.getValues(res, 0, serverURL)")
