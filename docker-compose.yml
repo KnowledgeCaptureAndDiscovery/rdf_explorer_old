@@ -4,5 +4,7 @@ services:
     build: .
     image: kcapd/explorer
     restart: always
+    environment:
+     - NODE_ENV=production
     ports:
-      - "7070:8080"
+      - "7070:7070"

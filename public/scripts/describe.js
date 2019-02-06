@@ -6,10 +6,6 @@ function replaceURI(uri, serverURL){
   return uri.replace(serverURL,"https://w3id.org");
 }
 
-function replaceLocalURI(uri, serverURL){
-  return uri.replace("https://w3id.org/mint/instance/", serverURL + );
-}
-
 function describeCtrl (scope, location, http) {
 
   var vm = this;
@@ -51,16 +47,6 @@ function describeCtrl (scope, location, http) {
   execQuery(propertiesQueryReverse(vm.uri), data => {
     vm.propertiesReverse = data.results.bindings;
   });
-
-  function changeURI( data ){
-    for (i=0; i<data.results.bindings.length; i++) {
-      if (data.results.bindings[i]['uri'] != undefined) {
-        //force redirect w3id to localhost
-        data.results.bindings[i]['uri']['value'] = replaceLocalURI(data.results.bindings[i]['uri']['value'], serverURL)
-      }
-    }
-    return data
-  }
 
   function getValues (prop, i) {
     if (i > 0) prop.step += 1;
