@@ -21,13 +21,14 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
+
 // ROUTES =====================================================================
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
 
 app.get('/',           function(req, res) {res.render(views+'index.pug'   );});
-app.get('/data/mint/*', data.data_show);
-app.get('/page/mint/*', page.page_show);
+app.get('/data/*/*', data.data_show);
+app.get('/page/*/*', page.page_show);
 app.get('/*', function(req, res) {
   if (req.accepts('text/html')){
     res.redirect(303, '/page' + req.originalUrl);

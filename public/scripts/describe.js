@@ -2,8 +2,8 @@ angular.module('dockerpedia.controllers').controller('describeCtrl', describeCtr
 
 describeCtrl.$inject = ['$scope', '$location', '$http']
 
-function replaceURI(uri, serverURL){
-  return uri.replace(serverURL,"https://w3id.org");
+function replaceURI(uri, serverURL, base){
+  return uri.replace(serverURL,base);
 }
 
 function describeCtrl (scope, location, http) {
@@ -11,6 +11,9 @@ function describeCtrl (scope, location, http) {
   var vm = this;
   var endpoint = queryEndpointJS
   var serverURL = serverURLJS
+  var graph = graphJS
+  var base = baseJS
+
   vm.toPrefix = toPrefix;
   vm.getValues = getValues;
   vm.properties = [];
@@ -38,10 +41,10 @@ function describeCtrl (scope, location, http) {
   vm.absUrl = location.absUrl();
   vm.datauri = vm.absUrl.replace('page/','data/')
   vm.uri = vm.absUrl.replace('page/','')
-  vm.uri = replaceURI(vm.uri, serverURL);
-
+  vm.uri = replaceURI(vm.uri, serverURL, base);
+  
   execQuery(propertiesQuery(vm.uri), data => {
-    vm.properties = data.results.bindings;
+     vm.properties = data.results.bindings;
   });
 
   execQuery(propertiesQueryReverse(vm.uri), data => {
@@ -78,33 +81,32 @@ function describeCtrl (scope, location, http) {
   /* query helpers */
   function propertiesQuery (uri) {
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
+    if (graph) q += 'GRAPH ?g {\n';
     q+= '  <' + uri + '> ?uri [] .\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
     q+= '}';
+    if (graph) q += '}';
     return q;
   }
 
   /* query helpers */
   function propertiesQueryReverse (uri) {
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
+    if (graph) q += 'GRAPH ?g {\n';
     q+= ' [] ?uri   <' + uri + '> .\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
     q+= '}';
+    if (graph) q += '}';
     return q;
-  }
-
-  function labelQuery (uri) {
-    q = 'SELECT DISTINCT ?label WHERE {\n';
-    q+= ' <' + uri + '> <http://www.w3.org/2000/01/rdf-schema#label> ?label \n'
-    q+= '}';
-    return q;
-  }
-
+  }  
+  
   /* query helpers */
   function valuesQuery (uri, prop, step) { //TODO: limit, offset and pagination.
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
+    if (graph) q += 'GRAPH ?g {\n';
     q+= '  <' + uri + '> <' + prop + '> ?uri .\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
+    if (graph) q += '}';
     q+= '} limit 11 offset ' + (step)*10;
     return q;
   }
@@ -112,8 +114,10 @@ function describeCtrl (scope, location, http) {
   /* query helpers */
   function valuesQueryReserve (uri, prop, step) { //TODO: limit, offset and pagination.
     q = 'SELECT DISTINCT ?uri ?label WHERE {\n';
+    if (graph) q += 'GRAPH ?g {\n';
     q+= '  ?uri  <' + prop + '> <' + uri + '>.\n';
     q+= '  OPTIONAL {?uri <http://www.w3.org/2000/01/rdf-schema#label> ?label .} \n'
+    if (graph) q += '}';
     q+= '} limit 11 offset ' + (step)*10;
     return q;
   }

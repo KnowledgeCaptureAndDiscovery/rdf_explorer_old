@@ -7,8 +7,8 @@
     "Maximiliano Osorio <mosorio@inf.utfsm.cl>"
   ],
   "scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "start": "node server.js",
+    "devstart": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "latest",
@@ -21,6 +21,6 @@
     "js-yaml": "latest"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.10"
   }
 }
