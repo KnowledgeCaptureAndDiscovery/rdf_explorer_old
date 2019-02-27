@@ -8,7 +8,7 @@
       "endpointQuery": "http://ontosoft.isi.edu:3030/ds/query",
       "base": "https://w3id.org"
     },
-    "exportTest": {
+    "export": {
       "endpointQuery": "http://ontosoft.isi.edu:3030/provenance/query",
       "base": "http://www.opmw.org",
       "graph": true
