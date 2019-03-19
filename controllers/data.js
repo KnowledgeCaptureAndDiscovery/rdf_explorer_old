@@ -1,13 +1,20 @@
 const config  = require('config');
 const request = require('request')
-const queryEndpoint = config.get('sparql.endpointDescribe');
-const serverURL     = config.get('server.url');
-
-function replaceURI(uri, serverURL){
-    return uri.replace(serverURL,"https://w3id.org");
-}
 
 exports.data_show = function(req, res) {
+    namespace = req.url.split("/")[2];
+    //obtain the params according the namespace
+    endPointKey = 'endpoints.' + namespace + '.endpointQuery'
+    graphKey = 'endpoints.' + namespace + '.graph'
+    baseKey = 'endpoints.' + namespace + '.base'
+    serverKey  = 'server.url'
+
+    queryEndpoint = config.get(endPointKey)
+    graph = config.has(graphKey);
+    baseURI = config.get(baseKey)
+    serverURL = config.get(serverKey)
+
+    //preparing the uri
     path = req.originalUrl.replace("data/", "")
     namespace = req.params[0]
     if (!config.has('endpoints.' + namespace)){
