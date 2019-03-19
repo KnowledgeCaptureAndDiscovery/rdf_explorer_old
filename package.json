@@ -8,17 +8,17 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "devstart": "nodemon server.js"
+    "devstart": "export NODE_ENV=dev; nodemon server.js"
   },
   "dependencies": {
     "body-parser": "latest",
     "config": "^3.0.1",
     "express": "latest",
+    "js-yaml": "latest",
     "morgan": "latest",
     "npm": "latest",
     "pug": "latest",
-    "request": "latest",
-    "js-yaml": "latest"
+    "request": "latest"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

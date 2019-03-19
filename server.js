@@ -27,9 +27,9 @@ app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
 
 app.get('/',           function(req, res) {res.render(views+'index.pug'   );});
-app.get('/data/*/*', data.data_show);
-app.get('/page/*/*', page.page_show);
-app.get('/*', function(req, res) {
+app.get(/^\/data\/(?:([^\/]+?))\/instance\/(?:([^\/]+?))+\/?$/i, data.data_show);
+app.get(/^\/page\/(?:([^\/]+?))\/instance\/(?:([^\/]+?))+\/?$/i, page.page_show);
+app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, function(req, res) {
   if (req.accepts('text/html')){
     res.redirect(303, '/page' + req.originalUrl);
   }
@@ -39,6 +39,10 @@ app.get('/*', function(req, res) {
   else {
     res.status(406).send('Not Acceptable');
   }
+});
+
+app.get('/*', function(req, res) {
+  res.status(404).send('Not Acceptable');
 });
 app.listen(port);
 console.log("App listening on port", port);

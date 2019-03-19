@@ -9,11 +9,16 @@ function replaceURI(uri, serverURL){
 
 exports.data_show = function(req, res) {
     path = req.originalUrl.replace("data/", "")
-    url = serverURL + path;
-    url = replaceURI(url, serverURL)
-    resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])
-    var q = 'DESCRIBE <' + url + '>';
-    console.log(q)
+    namespace = req.params[0]
+    if (!config.has('endpoints.' + namespace)){
+        res.statusCode = 404;
+        res.send('Not found');
+    }
+    else {
+        url = serverURL + path;
+        url = replaceURI(url, serverURL)
+        resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])
+        var q = 'DESCRIBE <' + url + '>';
         request.post(
             queryEndpoint, 
             { 
@@ -24,4 +29,5 @@ exports.data_show = function(req, res) {
                 res.send(body);
             }
         );
+    }
 };
