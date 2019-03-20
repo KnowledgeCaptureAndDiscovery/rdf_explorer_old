@@ -2,6 +2,13 @@
 
 RDF explorer is a Linked Data Frontend for SPARQL Endpoints
 
+
+### How to build 
+
+```shell
+$ docker-compose build
+```
+
 ### How to run 
 
 Using docker-compose:
