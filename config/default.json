@@ -1,6 +1,6 @@
 {
   "sparql": {
-    "endpointQuery": "http://ontosoft.isi.edu:3030/ds/query",
-    "endpointDescribe": "http://ontosoft.isi.edu:3030/ds/sparql"
+    "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
+    "endpointDescribe": "https://endpoint.mint.isi.edu/ds/sparql"
   }
 }

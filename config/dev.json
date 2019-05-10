@@ -5,11 +5,11 @@
   },
   "endpoints": {
     "mint": {
-      "endpointQuery": "http://ontosoft.isi.edu:3030/ds/query",
+      "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
       "base": "https://w3id.org"
     },
     "export": {
-      "endpointQuery": "http://ontosoft.isi.edu:3030/provenance/query",
+      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
       "base": "http://www.opmw.org",
       "graph": true
     }
