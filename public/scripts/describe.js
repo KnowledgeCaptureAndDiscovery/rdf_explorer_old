@@ -31,8 +31,8 @@ function describeCtrl (scope, location, http) {
     {prefix: 'resource:', uri: "http://localhost:7070/mint/instance/"},
     {prefix: 'purl:', uri: "http://purl.org/dc/terms/"},
     {prefix: 'onsw:', uri: "http://ontosoft.org/software#"},
-    {prefix: 'opmw:', uri: "http://www.opmw.org/ontology/"},
-    {prefix: 'opmwExport:', uri: "http://www.opmw.org/export/"},
+    {prefix: 'opmw:', uri: "https://www.opmw.org/ontology/"},
+    {prefix: 'opmwExport:', uri: "https://www.opmw.org/export/"},
     {prefix: 'provModel:', uri: "http://openprovenance.org/model/opmo#"},
     {prefix: 'wings:', uri: "https://w3id.org/wings/"},
 
