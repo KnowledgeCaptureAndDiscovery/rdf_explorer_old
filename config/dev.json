@@ -10,7 +10,12 @@
     },
     "export": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "http://www.opmw.org",
+      "base": "https://www.opmw.org",
+      "graph": true
+    },
+    "wings": {
+      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
+      "base": "https://w3id.org",
       "graph": true
     }
   }
