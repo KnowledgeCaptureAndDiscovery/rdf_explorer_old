@@ -34,8 +34,8 @@ function describeCtrl (scope, location, http) {
     {prefix: 'opmw:', uri: "https://www.opmw.org/ontology/"},
     {prefix: 'opmwExport:', uri: "https://www.opmw.org/export/"},
     {prefix: 'provModel:', uri: "http://openprovenance.org/model/opmo#"},
+    {prefix: 'mint:', uri: "https://w3id.org/wings/export/MINT-production/Component#"},
     {prefix: 'wings:', uri: "https://w3id.org/wings/"},
-
   ];
 
   var specials = {
