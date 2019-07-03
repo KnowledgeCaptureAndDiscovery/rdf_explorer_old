@@ -12,7 +12,6 @@ exports.page_show = function(req, res) {
         endPointKey = 'endpoints.' + namespace + '.endpointQuery'
         graphKey = 'endpoints.' + namespace + '.graph'
         baseKey = 'endpoints.' + namespace + '.base'
-    
         queryEndpoint = config.get(endPointKey)
         baseURI = config.get(baseKey)
         var graph;

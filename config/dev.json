@@ -15,8 +15,7 @@
     },
     "wings": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "https://w3id.org",
-      "graph": true
+      "base": "https://w3id.org"    
     }
   }
 }

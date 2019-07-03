@@ -7,6 +7,8 @@ function replaceURI(uri, serverURL, base){
 
 exports.data_show = function(req, res) {
     namespace = req.url.split("/")[2];
+
+    console.log("Namespace is: " + namespace)
     //obtain the params according the namespace
     endPointKey = 'endpoints.' + namespace + '.endpointQuery'
     graphKey = 'endpoints.' + namespace + '.graph'
@@ -28,10 +30,19 @@ exports.data_show = function(req, res) {
     else {
         url = baseURI + path;
         resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])        
-        var q = 'CONSTRUCT { ?s ?o ?p } WHERE {\n';
-        q+= 'GRAPH <' + url + '>';
-        q+= ' { ?s ?o ?p } }';
-                
+
+
+
+
+        if (graph) { 
+            var q = 'CONSTRUCT { ?s ?o ?p } WHERE {\n';
+            q+= 'GRAPH <' + url + '>';
+            q+= ' { ?s ?o ?p } }';
+        }
+        else {
+            var q = 'DESCRIBE <' + url + '>';
+        }
+               
         console.log(q);
         request.post(
             queryEndpoint, 
