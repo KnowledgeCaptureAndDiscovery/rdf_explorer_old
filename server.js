@@ -25,6 +25,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // ROUTES =====================================================================
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
+app.get('/prefixes', function(req, res) {res.render(views+'prefixes.pug');});
 
 app.get('/',           function(req, res) {res.render(views+'index.pug'   );});
 app.get(/^\/data\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, data.data_show);

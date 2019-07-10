@@ -38,7 +38,10 @@ function describeCtrl (scope, location, http) {
     {prefix: 'opmv:', uri: "http://purl.org/net/opmv/ns#"},
     {prefix: 'opmw:', uri: "https://www.opmw.org/ontology/"},
     {prefix: 'prov:', uri: "http://www.w3.org/ns/prov#"},
-    {prefix: 'opmwTemplate', uri: "https://www.opmw.org/export/resource/WorkflowTemplateProcess"},
+
+    {prefix: 'opmwTemplate', uri: "https://www.opmw.org/export/resource/WorkflowTemplate"},
+    {prefix: 'opmwTemplateProcess', uri: "https://www.opmw.org/export/resource/WorkflowTemplateProcess"},
+    {prefix: 'opmwDataVariable', uri: "https://www.opmw.org/export/resource/DataVariable"},
 
     {prefix: 'owl:',   uri: "http://www.w3.org/2002/07/owl#"},
     {prefix: 'dc:', uri: "http://purl.org/dc/terms/"},
