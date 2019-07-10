@@ -40,7 +40,7 @@ function describeCtrl (scope, location, http) {
     {prefix: 'opmwTemplate', uri: "https://www.opmw.org/export/resource/WorkflowTemplateProcess"},
 
     {prefix: 'owl:',   uri: "http://www.w3.org/2002/07/owl#"},
-    {prefix: 'purl:', uri: "http://purl.org/dc/terms/"},
+    {prefix: 'dc:', uri: "http://purl.org/dc/terms/"},
     {prefix: 'rdf:',   uri: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"},
     {prefix: 'rdfs:',  uri: "http://www.w3.org/2000/01/rdf-schema#"},
     {prefix: 'resource:', uri: "http://localhost:7070/mint/instance/"},
