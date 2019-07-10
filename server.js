@@ -32,8 +32,16 @@ app.get(/^\/page\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, page.page_sh
 
 app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, function(req, res) {
   if (req.accepts('text/html')){
-    console.log(req.originalUrl)
-    res.redirect(303, '/page' + req.originalUrl);
+    //hack
+    if (req.originalUrl.match(/\/wings\/export\/.*\/(Data|Component)/)){
+      console.log("re-writing")
+      req.originalUrl = req.originalUrl.replace("export/", "export/Domain/").replace(/Data|Component/gi, "")
+      req.headers["Accept"] = "text/n-triples"
+      res.redirect(303, '/data' + req.originalUrl);
+    }
+    else {
+      res.redirect(303, '/page' + req.originalUrl);
+    }
   }
   else if (req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])){
     res.redirect(303, '/data' + req.originalUrl);
