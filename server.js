@@ -35,7 +35,7 @@ app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, funct
     //hack
     if (req.originalUrl.match(/\/wings\/export\/.*\/(Data|Component)/)){
       console.log("re-writing")
-      req.originalUrl = req.originalUrl.replace("export/", "export/Domain/").replace(/Data|Component/gi, "")
+      req.originalUrl = req.originalUrl.replace("export/", "export/Domain/").replace(/\/Data.*|\/Component.*/gi, "")
       req.headers["Accept"] = "text/n-triples"
       res.redirect(303, '/data' + req.originalUrl);
     }
