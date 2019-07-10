@@ -25,6 +25,7 @@ function describeCtrl (scope, location, http) {
     {prefix: 'mint-component:', uri: "https://w3id.org/wings/export/MINT-production/Component#"},
     {prefix: 'mint-extension:', uri: "https://w3id.org/wings/export/MINT-production/extension#"},
     {prefix: 'mint-ci:', uri: "https://w3id.org/wings/export/MINT-production/resource/CanonicalInstance/"},
+    {prefix: 'mint-data:', uri: "https://w3id.org/wings/export/MINT-production/Data#"},
 
     {prefix: 'wings-wd:', uri: "http://www.wings-workflows.org/ontology/workflow.owl#"},
     {prefix: 'wings-wd:', uri: "https://www.wings-workflows.org/ontology/workflow.owl#"},
