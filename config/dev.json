@@ -4,18 +4,28 @@
   	"url": "http://localhost:7070"
   },
   "endpoints": {
+    "enabled": ["domain", "mint", "export", "wings"],
+    "domain": {
+        "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
+        "base": "https://w3id.org",
+        "path": "/wings/export/",
+        "graph": true
+      },  
     "mint": {
       "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
-      "base": "https://w3id.org"
+      "base": "https://w3id.org",
+      "path": "/mint/instance"
     },
     "export": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
       "base": "https://www.opmw.org",
+      "path": "/export/",
       "graph": true
     },
     "wings": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "https://w3id.org"    
+      "base": "https://w3id.org",
+      "path": "wings"
     }
   }
 }

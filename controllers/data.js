@@ -1,14 +1,15 @@
 const config  = require('config');
 const request = require('request')
+var utils = require('./utils.js');
 
 function replaceURI(uri, serverURL, base){
     return uri.replace(serverURL,base);
 }
 
 exports.data_show = function(req, res) {
-    namespace = req.url.split("/")[2];
-
+    namespace = utils.matcher(req.url);
     console.log("Namespace is: " + namespace)
+
     //obtain the params according the namespace
     endPointKey = 'endpoints.' + namespace + '.endpointQuery'
     graphKey = 'endpoints.' + namespace + '.graph'
@@ -29,11 +30,7 @@ exports.data_show = function(req, res) {
     }
     else {
         url = baseURI + path;
-        resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])        
-
-
-
-
+        resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])
         if (graph) { 
             var q = 'CONSTRUCT { ?s ?o ?p } WHERE {\n';
             q+= 'GRAPH <' + url + '>';

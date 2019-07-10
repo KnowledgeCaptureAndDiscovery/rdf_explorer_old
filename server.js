@@ -32,6 +32,7 @@ app.get(/^\/page\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, page.page_sh
 
 app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, function(req, res) {
   if (req.accepts('text/html')){
+    console.log(req.originalUrl)
     res.redirect(303, '/page' + req.originalUrl);
   }
   else if (req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])){
