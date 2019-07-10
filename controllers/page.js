@@ -1,9 +1,10 @@
 const config  = require('config');
 const views     = __dirname + './../public/views/';
+var utils = require('./utils.js');
 
 exports.page_show = function(req, res) {
     /*detect the namespace and endpoint*/
-    namespace = req.params[0]
+    namespace = utils.matcher(req.url);
     if (!config.has('endpoints.' + namespace)){
         res.statusCode = 404;
         res.send('Not found');
@@ -24,7 +25,7 @@ exports.page_show = function(req, res) {
     
         serverKey  = 'server.url'
         serverURL = config.get(serverKey)
-        
+        console.log(queryEndpoint)
         res.render(views+'describe.pug', {
             'queryEndpoint': queryEndpoint,
             'serverURL': serverURL,
