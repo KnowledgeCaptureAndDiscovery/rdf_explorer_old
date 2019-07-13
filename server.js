@@ -41,8 +41,7 @@ app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, funct
       res.redirect(303, '/data' + req.originalUrl);
     }
     else {
-      console.log("fail")
-    }
+      res.redirect(303, '/page' + req.originalUrl);    }
   }
   else if (req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])){
     res.redirect(303, '/data' + req.originalUrl);
