@@ -22,28 +22,27 @@ exports.data_show = function(req, res) {
     serverURL = config.get(serverKey)
 
     //preparing the uri
-    path = req.originalUrl.replace("data/", "")
-    namespace = req.params[0]
+    var resource_path = req.originalUrl.replace("data/", "");
+    namespace = utils.matcher(req.url);
     if (!config.has('endpoints.' + namespace)){
         res.statusCode = 404;
         res.send('Not found');
     }
     else {
-        url = baseURI + path;
-        resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])
-        if (graph) { 
+        var resource_uri = baseURI + resource_path;
+        const resFormat = req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples']);
+        if (graph) {
             var q = 'CONSTRUCT { ?s ?o ?p } WHERE {\n';
-            q+= 'GRAPH <' + url + '>';
+            q+= 'GRAPH <' + resource_uri + '>';
             q+= ' { ?s ?o ?p } }';
         }
         else {
-            var q = 'DESCRIBE <' + url + '>';
+            var q = 'DESCRIBE <' + resource_uri + '>';
         }
-               
         console.log(q);
         request.post(
-            queryEndpoint, 
-            { 
+            queryEndpoint,
+            {
                 form: {format: resFormat, query: q}
             },
             function (err, rcode, body) {

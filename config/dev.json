@@ -1,16 +1,27 @@
 {
   "server": {
-  	"port": 7070,
-  	"url": "http://localhost:7070"
+    "port": 7070,
+    "url": "http://localhost:7070"
   },
   "endpoints": {
-    "enabled": ["domain", "mint", "export", "wings"],
+    "enabled": [
+      "okn-mint",
+      "domain",
+      "mint",
+      "export",
+      "wings"
+    ],
     "domain": {
-        "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-        "base": "https://w3id.org",
-        "path": "/wings/export/",
-        "graph": true
-      },  
+      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
+      "base": "https://w3id.org",
+      "path": "/wings/export/",
+      "graph": true
+    },
+    "okn-mint": {
+      "endpointQuery": "https://endpoint.mint.isi.edu/dev/query",
+      "base": "https://w3id.org",
+      "path": "/okn/i/mint"
+    },
     "mint": {
       "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
       "base": "https://w3id.org",

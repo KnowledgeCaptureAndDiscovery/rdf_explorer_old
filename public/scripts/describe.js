@@ -56,7 +56,8 @@ function describeCtrl (scope, location, http) {
   var specials = {
     'description': 'http://purl.org/dc/terms/description',
     'label': 'http://www.w3.org/2000/01/rdf-schema#label'
-  }
+  };
+
   vm.label = ""
   vm.absUrl = location.absUrl();
   vm.datauri = vm.absUrl.replace('page/','data/')
