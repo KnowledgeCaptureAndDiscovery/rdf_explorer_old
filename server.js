@@ -11,6 +11,7 @@ const views     = __dirname + '/public/views/';
 var app = express();
 var data = require('./controllers/data.js');
 var page = require('./controllers/page.js');
+var prefixes = require('./controllers/prefixes.js');
 
 // EXPRESS CONFIGURATION ======================================================
 app.set('view engine', 'pug');
@@ -25,9 +26,9 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // ROUTES =====================================================================
 app.get('/query',      function(req, res) {res.render(views+'query.pug'   );});
 app.get('/vocab*',     function(req, res) {res.render(views+'describe.pug');});
-app.get('/prefixes', function(req, res) {res.render(views+'prefixes.pug');});
 
 app.get('/',           function(req, res) {res.render(views+'index.pug'   );});
+app.get('/prefixes',   prefixes.get_prefixes);
 app.get(/^\/data\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, data.data_show);
 app.get(/^\/page\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, page.page_show);
 
