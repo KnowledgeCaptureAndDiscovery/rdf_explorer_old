@@ -1,7 +1,7 @@
 {
   "server": {
   	"port": 7070,
-  	"url": "http://ontosoft.isi.edu:7070"
+  	"url": "https://rdfexplorer.mint.isi.edu"
   },
   "endpoints": {
     "enabled": [
