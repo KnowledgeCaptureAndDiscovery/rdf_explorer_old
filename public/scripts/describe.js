@@ -47,6 +47,10 @@ function describeCtrl (scope, location, http) {
     {prefix: 'dc:', uri: "http://purl.org/dc/terms/"},
     {prefix: 'rdf:',   uri: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"},
     {prefix: 'rdfs:',  uri: "http://www.w3.org/2000/01/rdf-schema#"},
+  
+    {prefix: 'sd:', uri: "https://w3id.org/okn/o/sd"},
+    {prefix: 'o:', uri: "https://w3id.org/okn/o"},
+    
     {prefix: 'resource:', uri: "http://localhost:7070/mint/instance/"},
     {prefix: 'resource:', uri: "https://w3id.org/mint/instance/"},
     {prefix: 'vocab:', uri: "http://localhost:7070/mint/modelCatalog#"},
