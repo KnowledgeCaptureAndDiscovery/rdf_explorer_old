@@ -9,7 +9,8 @@
       "domain",
       "mint",
       "export",
-      "wings"
+      "wings",
+      "wikidata"
     ],
     "domain": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
@@ -38,6 +39,11 @@
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
       "base": "https://w3id.org",
       "path": "wings"
+    },
+    "wikidata": {
+      "endpointQuery": "http://kg2018a.isi.edu:8888/bigdata/namespace/wdq/sparql",
+      "base": "https://w3id.org",
+      "path": "/satellite/dm/entity"
     }
   }
 }
