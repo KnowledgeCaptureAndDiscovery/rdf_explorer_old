@@ -160,7 +160,7 @@ function describeCtrl (scope, location, http) {
     http({
         method: 'post',
         url: endpoint,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        headers: {'Accept': 'application/sparql-results+json'},
         transformRequest: toForm, 
         data: { query: query, format: "application/sparql-results+json" }
     }).then(
