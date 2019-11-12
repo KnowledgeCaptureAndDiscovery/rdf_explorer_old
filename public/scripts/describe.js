@@ -162,7 +162,7 @@ function describeCtrl (scope, location, http) {
         url: endpoint,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         transformRequest: toForm, 
-        data: { query: query, format: "application/sparql-results+json" }
+        data: { query: query }
     }).then(
       function onSuccess (response) { callback(response.data); },
       function onError   (response) { console.log('Error: ', response); }

@@ -43,7 +43,7 @@
     "wikidata": {
       "endpointQuery": "http://kg2018a.isi.edu:8888/bigdata/namespace/wdq/sparql",
       "base": "https://w3id.org",
-      "path": "/satellite/dm/entity"
+      "path": "/satellite"
     }
   }
 }

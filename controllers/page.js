@@ -22,7 +22,7 @@ exports.page_show = function(req, res) {
         else {
             graph = false;
         }
-    
+        console.log(graph); 
         serverKey  = 'server.url'
         serverURL = config.get(serverKey)
         console.log(queryEndpoint)

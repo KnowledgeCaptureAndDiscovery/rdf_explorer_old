@@ -34,6 +34,7 @@ app.get(/^\/page\/(?:([^\/]+?))\/(?:([^\/]+?)((?:[\/].+?)?))\/?$/i, page.page_sh
 
 app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, function(req, res) {
   if (req.accepts('text/html')){
+    console.log("html");
     if (req.originalUrl.match(/\/wings\/export\/.*\/(Data|Component|resource\/CanonicalInstance)/)){
       console.log("re-writing")
       req.originalUrl = req.originalUrl.replace("export/", "export/Domain/").replace(/\/Data.*|\/Component.*\/|\/resource\/CanonicalInstance\/.*/gi, "")

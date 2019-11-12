@@ -39,12 +39,20 @@ exports.data_show = function(req, res) {
         else {
             var q = 'DESCRIBE <' + resource_uri + '>';
         }
-        console.log(q);
+
+var headers = {
+    'Accept': resFormat
+};
+
+var options = { 
+	  url: queryEndpoint,
+    method: 'POST',
+    headers: headers,
+    body: q
+};
+console.log(options);
         request.post(
-            queryEndpoint,
-            {
-                form: {format: resFormat, query: q}
-            },
+            options,
             function (err, rcode, body) {
                 res.type(resFormat);
                 res.send(body);
