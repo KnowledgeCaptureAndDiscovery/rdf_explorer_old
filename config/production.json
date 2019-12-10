@@ -41,7 +41,7 @@
       "path": "wings"
     },
     "wikidata": {
-      "endpointQuery": "http://kg2018a.isi.edu:8888/bigdata/namespace/wdq/sparql",
+      "endpointQuery": "http://dsbox02.isi.edu:8899/bigdata/namespace/wdq/sparql",
       "base": "https://w3id.org",
       "path": "/satellite"
     }
