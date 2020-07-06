@@ -19,7 +19,7 @@
       "graph": true
     },
     "okn-mint": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/modelCatalog-1.2.0/query",
+      "endpointQuery": "https://endpoint.mint.isi.edu/modelCatalog-1.4.0/query",
       "base": "https://w3id.org",
       "path": "/okn/i/mint",
       "graph": true
