@@ -20,7 +20,7 @@ $ docker-compose up -d
 Or you can only docker cmd: 
 
 ```shell
-docker run -d --name rdf_explorer -e "NODE_ENV=production" -p 7070:7070 kcapd/explorer
+docker run -d --name rdf_explorer -e "NODE_ENV=production" -p 7070:7070 kcapd/explorer-omics
 ```
 
 ### Add new endpoint

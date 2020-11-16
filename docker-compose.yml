@@ -2,7 +2,7 @@ version: '3'
 services:
   explorer:
     build: .
-    image: kcapd/explorer
+    image: kcapd/explorer-omics
     restart: always
     environment:
      - NODE_ENV=production
