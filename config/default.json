@@ -1,6 +1,6 @@
 {
-  "sparql": {
-    "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
-    "endpointDescribe": "https://endpoint.mint.isi.edu/ds/sparql"
+  "omics_docker": {
+    "endpointQuery": "http://ontosoft.isi.edu:3030/omics/query",
+    "endpointDescribe": "http://ontosoft.isi.edu:3030/omics/sparql"
   }
 }

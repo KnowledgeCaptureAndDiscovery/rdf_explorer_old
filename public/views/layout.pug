@@ -3,7 +3,7 @@ html(lang="en", ng-app="dockerpedia")
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    base(href="/")
+    base(href="/export/omics_docker/")
     // Bootstrap stuff
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
     script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
@@ -35,16 +35,16 @@ html(lang="en", ng-app="dockerpedia")
   body
     div#container
       nav.navbar.navbar-expand-lg.navbar-light.bg-light(ng-controller="mainCtrl")
-        a.navbar-brand(href="/") RDF explorer
+        a.navbar-brand(href="/export/omics_docker") RDF explorer
         button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNavDropdown",
                               aria-controls="navbarNavDropdown", aria-expanded="false", aria-label="Toggle navigation")
           span.navbar-toggler-icon
         div#navbarNavDropdown.navbar-collapse.collapse
           ul.navbar-nav.mr-auto
             li.nav-item(ng-class="!loc ? 'active' : '';")
-              a.nav-link(href="/") Home
+              a.nav-link(href="/export/omics_docker") Home
           ul.navbar-nav
             li.nav-item(ng-class="loc == 'query' ? 'active' : '';")
-              a.nav-link(href="/query") Query
+              a.nav-link(href="/export/omics_docker/query") Query
       div#body
         block content

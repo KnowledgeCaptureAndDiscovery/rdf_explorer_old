@@ -76,8 +76,8 @@ SELECT ?packagename (count(?packagename) as ?count) WHERE {
 } group by (?packagename) order by desc(?count) limit 20`,
   ];
 
-  var baseURL = "https://endpoint.mint.isi.edu";
-  var endpointSPARQL = baseURL + '/ds/sparql';
+  var baseURL = "https://endpoint.omics.mint.isi.edu";
+  var endpointSPARQL = baseURL + '/omics/sparql';
   var absUrlArray = location.absUrl().split('/');
   scope.loc = absUrlArray[absUrlArray.length -1].split('?')[0].split('#')[0];
   if (scope.loc == 'query') {

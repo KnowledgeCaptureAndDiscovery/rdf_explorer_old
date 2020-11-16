@@ -40,13 +40,13 @@ app.get(/^\/((?:[^\/]+?))\/((?:[^\/]+?)(?:\/(?:[^\/]+?))*)(?:\/(?=$))?$/i, funct
       req.originalUrl = req.originalUrl.replace("export/", "export/Domain/").replace(/\/Data.*|\/Component.*\/|\/resource\/CanonicalInstance\/.*/gi, "")
       console.log(req.originalUrl)
       req.headers["Accept"] = "text/n-triples"
-      res.redirect(303, '/data' + req.originalUrl);
+      res.redirect(303, '/export/omics_docker/data' + req.originalUrl);
     }
     else {
-      res.redirect(303, '/page' + req.originalUrl);    }
+      res.redirect(303, '/export/omics_docker/page' + req.originalUrl);    }
   }
   else if (req.accepts(['text/turtle', 'application/ld+json', 'application/rdf+xml', 'application/n-triples'])){
-    res.redirect(303, '/data' + req.originalUrl);
+    res.redirect(303, '/export/omics_docker/data' + req.originalUrl);
   }
   else {
     res.status(406).send('Not Acceptable');

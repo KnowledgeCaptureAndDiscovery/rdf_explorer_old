@@ -1,49 +1,17 @@
 {
   "server": {
   	"port": 7070,
-  	"url": "https://rdfexplorer.mint.isi.edu"
+  	"url": "https://www.opmw.org/export/omics_docker"
   },
   "endpoints": {
     "enabled": [
-      "okn-mint",
-      "domain",
-      "mint",
-      "export",
-      "wings",
-      "wikidata"
+      "wings-omics"
     ],
-    "domain": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "https://w3id.org",
-      "path": "/wings/export/",
+    "wings-omics": {
+      "endpointQuery": "https://endpoint.omics.mint.isi.edu/omics/query",
+      "base": "https://www.opmw.org/export/omics_docker",
+      "path": "/",
       "graph": true
-    },
-    "okn-mint": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/modelCatalog-1.5.0/query",
-      "base": "https://w3id.org",
-      "path": "/okn/i/mint",
-      "graph": true
-    },
-    "mint": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/ds/query",
-      "base": "https://w3id.org",
-      "path": "/mint/instance"
-    },
-    "export": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "https://www.opmw.org",
-      "path": "/export/",
-      "graph": true
-    },
-    "wings": {
-      "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
-      "base": "https://w3id.org",
-      "path": "wings"
-    },
-    "wikidata": {
-      "endpointQuery": "https://dsbox02.isi.edu:8899/bigdata/namespace/wdq/sparql",
-      "base": "https://w3id.org",
-      "path": "/satellite"
     }
   }
 }
