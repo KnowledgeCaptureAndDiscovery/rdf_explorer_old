@@ -48,8 +48,8 @@ block content
               a(ng-if="v.uri.type=='uri'", href="{{ v.uri.value }}") {{ v.label ? v.label.value : ctrl.toPrefix(v.uri.value) }}
               b(ng-if="v.uri.type!='uri'") {{ v.uri.value }}
             div(ng-if="ctrl.values[res.uri.value].length > 10 || res.step>0", )
-              i.pull-right.fa.fa-chevron-right(ng-if="ctrl.values[res.uri.value].length > 10", ng-click="ctrl.getValues(res, 1);")
-              i.pull-right.fa.fa-chevron-left(ng-if="res.step>0", ng-click="ctrl.getValues(res, -1);")
+              i.pull-right.fa.fa-chevron-right(ng-if="ctrl.values[res.uri.value].length > 10", ng-click="ctrl.getValuesReverse(res, 1);")
+              i.pull-right.fa.fa-chevron-left(ng-if="res.step>0", ng-click="ctrl.getValuesReverse(res, -1);")
               div.pull-right(style="margin-right: 10px; display: inline-block;") Page {{res.step + 1}}
 
         //div.table-responsive
