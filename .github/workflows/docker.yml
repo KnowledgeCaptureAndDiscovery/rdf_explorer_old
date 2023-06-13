@@ -43,6 +43,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Print variable on GITHUB_OUTPUT
+        run: echo ${{steps.exposeValue.outputs.docker_tag}}
+
       # - name: Build and push Docker image
       #   uses: docker/build-push-action@v3.0.0
       #   with:
@@ -57,7 +60,7 @@ jobs:
       security-events: write
       packages: write
     name: "Scan vulnerabilities in the image"
-    needs: [build]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
