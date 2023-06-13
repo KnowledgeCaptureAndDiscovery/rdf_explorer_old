@@ -1,0 +1,78 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - "*"
+    tags:
+      - v*
+  pull_request:
+
+env:
+  DOCKER_IMAGE_NAME: rdfexplorer
+  DOCKER_IMAGE_REPOSITORY: ikcap
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create value as an environment variable
+        run: |
+          echo "DOCKER_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
+
+      - name: Expose value
+        id: exposeValue
+        run: |
+          echo "::set-output name=docker_tag::${{ env.DOCKER_TAG }}"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3.0.0
+        with:
+          push: true
+          context: .
+          tags: ${{ env.DOCKER_IMAGE_REPOSITORY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG }}
+          platforms: linux/amd64,linux/arm64
+
+    outputs:
+      docker_tag: ${{ steps.exposeValue.outputs.docker_tag }}
+
+  security:
+    permissions:
+      contents: read
+      security-events: write
+      packages: write
+    name: "Scan vulnerabilities in the image"
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.DOCKER_IMAGE_REPOSITORY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ needs.build.outputs.docker_tag }}
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          severity: ${{ env.VULNERABILITY_SCAN_LEVEL }}
+          exit-code: "0"
+          ignore-unfixed: "true"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
