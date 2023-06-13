@@ -29,7 +29,7 @@ jobs:
       - name: Expose value
         id: exposeValue
         run: |
-          echo "docker_tag=test" >> $GITHUB_OUTPUT
+          echo "docker_tag=test" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -60,19 +60,23 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.DOCKER_IMAGE_REPOSITORY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ needs.build.outputs.docker_tag }}
-          format: "template"
-          template: "@/contrib/sarif.tpl"
-          output: "trivy-results.sarif"
-          severity: ${{ env.VULNERABILITY_SCAN_LEVEL }}
-          exit-code: "0"
-          ignore-unfixed: "true"
+      - uses: actions/checkout@v3
+      - name: Print variable on GITHUB_OUTPUT
+        run: echo ${{needs.build.outputs.docker_tag}}
 
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        if: always()
-        with:
-          sarif_file: "trivy-results.sarif"
+      # - name: Run Trivy vulnerability scanner
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: ${{ env.DOCKER_IMAGE_REPOSITORY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ needs.build.outputs.docker_tag }}
+      #     format: "template"
+      #     template: "@/contrib/sarif.tpl"
+      #     output: "trivy-results.sarif"
+      #     severity: ${{ env.VULNERABILITY_SCAN_LEVEL }}
+      #     exit-code: "0"
+      #     ignore-unfixed: "true"
+
+      # - name: Upload Trivy scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   if: always()
+      #   with:
+      #     sarif_file: "trivy-results.sarif"
