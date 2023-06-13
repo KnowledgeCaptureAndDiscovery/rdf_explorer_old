@@ -1,17 +1,10 @@
 {
   "server": {
-  	"port": 7070,
-  	"url": "https://rdfexplorer.mint.isi.edu"
+    "port": 7070,
+    "url": "https://rdfexplorer.mint.isi.edu"
   },
   "endpoints": {
-    "enabled": [
-      "okn-mint",
-      "domain",
-      "mint",
-      "export",
-      "wings",
-      "wikidata"
-    ],
+    "enabled": ["okn-mint", "domain", "mint", "export", "wings", "wikidata"],
     "domain": {
       "endpointQuery": "https://endpoint.mint.isi.edu/provenance/query",
       "base": "https://w3id.org",
