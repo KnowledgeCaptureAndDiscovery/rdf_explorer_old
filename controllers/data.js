@@ -1,5 +1,6 @@
 const config = require("config");
 var utils = require("./utils.js");
+const request = require("request");
 
 function replaceURI(uri, serverURL, base) {
   return uri.replace(serverURL, base);

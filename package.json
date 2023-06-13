@@ -17,7 +17,9 @@
     "js-yaml": "4.1.0",
     "morgan": "1.10.0",
     "npm": "9.7.1",
-    "pug": "3.0.2"
+    "pug": "3.0.2",
+    "request": "^2.88.2",
+    "requests": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
